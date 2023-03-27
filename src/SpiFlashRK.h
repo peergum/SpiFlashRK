@@ -262,7 +262,20 @@ public:
 	 */
 	inline SpiFlash &withSharedBus(unsigned long delayus) { return *this;};
 
-protected:
+  /**
+   * @brief Sets the chip erase timeout in ms
+   *
+   * @param delayms Amount of time in milliseconds to delay after fully erasing the chip (chiperase).
+   *
+   * This is no longer necessary and is only included for backward
+   * compatibility and does nothing.
+   */
+  inline SpiFlash &withChipEraseTimeoutMs(unsigned long delayms) {
+    chipEraseTimeoutMs = delayms;
+    return *this;
+  };
+
+       protected:
 	// Flags for the status register
 	static const uint8_t STATUS_WIP 	= 0x01;
 	static const uint8_t STATUS_WEL 	= 0x02;
@@ -283,7 +296,7 @@ protected:
 	 *
 	 * Flash-chip-specific subclasses can override this if they need a slower speed.
 	 */
-	uint8_t spiClockSpeedMHz = 30;
+	uint8_t spiClockSpeedMHz = 24;
 
 	/**
 	 * @brief The data mode.

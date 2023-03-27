@@ -28,9 +28,9 @@ bool SpiFlash::isValid() {
 
 void SpiFlash::beginTransaction() {
 	
-	__SPISettings settings(spiClockSpeedMHz * MHZ, spiBitOrder, spiDataMode);
+	// __SPISettings settings(spiClockSpeedMHz * MHZ, spiBitOrder, spiDataMode);
 
-	spi.beginTransaction(settings);
+	// spi.beginTransaction(settings);
 	pinResetFast(cs);
 
 	// There is some code to do this in the STM32F2xx HAL, but I don't think it's necessary to put
@@ -40,7 +40,7 @@ void SpiFlash::beginTransaction() {
 
 void SpiFlash::endTransaction() {
 	pinSetFast(cs);
-	spi.endTransaction();
+	// spi.endTransaction();
 }
 
 uint32_t SpiFlash::jedecIdRead() {
@@ -173,7 +173,7 @@ void SpiFlash::writeData(size_t addr, const void *buf, size_t bufLen) {
 			count = bufLen;
 		}
 
-		// Log.info("writeData addr=%lx pageOffset=%lu pageStart=%lu count=%lu pageSize=%lu", addr, pageOffset, pageStart, count, pageSize);
+		//Log.info("writeData addr=%lx pageOffset=%lu pageStart=%lu count=%lu pageSize=%lu", addr, pageOffset, pageStart, count, pageSize);
 
 		uint8_t txBuf[5];
 
@@ -201,7 +201,7 @@ void SpiFlash::sectorErase(size_t addr) {
 
 	uint8_t txBuf[5];
 
-	// Log.trace("sectorEraseCmd=%02x", sectorEraseCmd);
+	// //Log.trace("sectorEraseCmd=%02x", sectorEraseCmd);
 
 	//
 	// ISSI 25LQ080 uses 0x20 or 0xD7
@@ -326,7 +326,7 @@ bool SpiFlash::set4ByteAddressing(bool enable) {
 
 	// Verify that the mode was set
 	uint8_t configReg = readConfiguration();
-	if ((configReg & 0x20) != 0) { // 4 BYTE
+	if ((configReg & 0x01) != 0) { // 4 BYTE
 		if (!enable) {
 			// Failed to disable
 			return false;
