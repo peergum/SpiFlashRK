@@ -1,4 +1,6 @@
-# SpiFlashRK
+# SpiFlashPG
+
+**Acknowledgment**: This library is a minor update to the original [SpiFlashRK](https://github.com/rickkas7/SpiFlashRK) library by @ricckas7
 
 *Particle library for SPI NOR flash memory chips*
 
